@@ -1,19 +1,43 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'react-native';
+import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
+import * as Font from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+import AppContainer from './navigation/Navigator';
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    StatusBar.setBackgroundColor('rgba(0, 0, 0, 0)');
+    this.state = {
+      isReady: false,
+    };
+  }
+
+  async componentDidMount() {
+    await Promise.all([
+      Font.loadAsync({
+        Roboto: require('native-base/Fonts/Roboto.ttf'),
+        Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+        ...Ionicons.font,
+      }),
+      Asset.loadAsync([
+        require('./assets/login-bg.png'),
+      ]),
+    ]);
+
+    this.setState({ isReady: true });
+  }
+
+  render() {
+    if (!this.state.isReady) {
+      return <AppLoading />;
+    }
+
+    return (
+      <AppContainer />
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
