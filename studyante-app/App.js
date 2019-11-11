@@ -21,6 +21,7 @@ export default class App extends React.Component {
       Font.loadAsync({
         Roboto: require('native-base/Fonts/Roboto.ttf'),
         Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+        Sacramento: require('./assets/fonts/Sacramento-Regular.ttf'),
         ...Ionicons.font,
       }),
       Asset.loadAsync([
