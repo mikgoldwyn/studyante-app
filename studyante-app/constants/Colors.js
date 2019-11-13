@@ -7,6 +7,6 @@ const Colors =  {
 
   white: '#ffffff',
   black: '#323232',
-}
+};
 
-export default Colors
+export default Colors;
