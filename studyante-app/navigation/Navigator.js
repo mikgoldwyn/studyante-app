@@ -32,8 +32,11 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       InitialLoading: InitialLoadingScreen,
-      Student: StudentStack,
       Auth: AuthStack,
+      Student: StudentStack,
+    },
+    {
+      initialRouteName: 'Student',
     }
   )
 );

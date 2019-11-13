@@ -11,6 +11,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     StatusBar.setBackgroundColor('rgba(0, 0, 0, 0)');
+    StatusBar.setTranslucent(true);
     this.state = {
       isReady: false,
     };
