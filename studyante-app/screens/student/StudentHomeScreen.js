@@ -19,6 +19,7 @@ class NavigationItem extends React.Component {
   render() {
     return (
       <TouchableWithoutFeedback
+        onPress={this.props.onPress}
       >
         <View
           style={{
@@ -51,50 +52,52 @@ export default class StudentHomeScreen extends React.Component {
         height: '100%'
         }}
       >
-      <Container
-        style={{
-          backgroundColor: 'transparent'
-        }}
-      >
-        <CustomHeader />
-        <Content
-          contentContainerStyle={{ flex: 1  }}
+        <Container
+          style={{
+            backgroundColor: 'transparent'
+          }}
         >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: Colors.transparent,
-            }}
+          <CustomHeader />
+          <Content
+            contentContainerStyle={{ flex: 1  }}
           >
-          </View>
-          <View
-            style={{
-              flex: 2,
-              borderTopWidth: 2,
-              borderBottomWidth: 2,
-              borderColor: Colors.base,
-            }}
-          >
-            <NavigationItem
-              text="REQUIREMENTS"
-            />
-            <NavigationItem
-              text="PLANNER / CALENDAR"
-            />
-            <NavigationItem
-              text="CLASS FUND"
-              last
-            />
-          </View>
-          <View
-            style={{
-              flex: 2,
-              backgroundColor: Colors.transparent,
-            }}
-          >
-          </View>
-        </Content>
-      </Container>
-    </ImageBackground>);
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: Colors.transparent,
+              }}
+            >
+            </View>
+            <View
+              style={{
+                flex: 2,
+                borderTopWidth: 2,
+                borderBottomWidth: 2,
+                borderColor: Colors.base,
+              }}
+            >
+              <NavigationItem
+                text="REQUIREMENTS"
+                onPress={() => this.props.navigation.navigate('StudentRequirements')}
+              />
+              <NavigationItem
+                text="PLANNER / CALENDAR"
+              />
+              <NavigationItem
+                text="CLASS FUND"
+                last
+              />
+            </View>
+            <View
+              style={{
+                flex: 2,
+                backgroundColor: Colors.transparent,
+              }}
+            >
+            </View>
+          </Content>
+        </Container>
+      </ImageBackground>
+    );
   }
 }

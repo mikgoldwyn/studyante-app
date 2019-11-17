@@ -1,5 +1,4 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
@@ -10,8 +9,6 @@ import AppContainer from './navigation/Navigator';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    StatusBar.setBackgroundColor('rgba(0, 0, 0, 0)');
-    StatusBar.setTranslucent(true);
     this.state = {
       isReady: false,
     };
@@ -29,6 +26,8 @@ export default class App extends React.Component {
       }),
       Asset.loadAsync([
         require('./assets/login-bg.png'),
+        require('./assets/main-bg.jpg'),
+        require('./assets/sub-bg.jpg'),
       ]),
     ]);
 

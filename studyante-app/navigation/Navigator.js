@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import InitialLoadingScreen from '../screens/InitialLoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import StudentHomeScreen from '../screens/student/StudentHomeScreen';
+import StudentRequirementsScreen from '../screens/student/StudentRequirementsScreen';
 
 
 const AuthStack = createStackNavigator(
@@ -22,9 +23,13 @@ const StudentStack = createStackNavigator(
     StudentHome: {
       screen: StudentHomeScreen,
     },
+    StudentRequirements: {
+      screen: StudentRequirementsScreen,
+    },
   },
   {
     headerMode: 'none',
+    initialRouteName: 'StudentRequirements'
   },
 );
 

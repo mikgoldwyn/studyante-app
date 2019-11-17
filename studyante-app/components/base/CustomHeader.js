@@ -1,6 +1,6 @@
 import React from 'react';
-import
-{
+import Constants from 'expo-constants';
+import {
   Text,
   View,
   Header,
@@ -8,8 +8,7 @@ import
   Thumbnail,
   Button,
   Icon,
-}
-from 'native-base';
+} from 'native-base';
 
 import Colors from '../../constants/Colors';
 
@@ -22,6 +21,7 @@ export default class StudentHomeScreen extends React.Component {
         noShadow
         span
         noLeft
+        style={{ paddingTop: Constants.statusBarHeight }}
       >
         <Body>
           <View
