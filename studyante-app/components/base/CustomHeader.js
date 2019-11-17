@@ -11,7 +11,7 @@ import
 }
 from 'native-base';
 
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 
 
 export default class StudentHomeScreen extends React.Component {

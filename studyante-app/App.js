@@ -23,6 +23,8 @@ export default class App extends React.Component {
         Roboto: require('native-base/Fonts/Roboto.ttf'),
         Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
         Sacramento: require('./assets/fonts/Sacramento-Regular.ttf'),
+        BebasNeue: require('./assets/fonts/BebasNeue-Regular.ttf'),
+        KeepCalm: require('./assets/fonts/KeepCalm-Medium.ttf'),
         ...Ionicons.font,
       }),
       Asset.loadAsync([
