@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ImageBackground,
   View,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import Constants from 'expo-constants';
 import {
@@ -22,52 +21,33 @@ import HeavyText from '../../components/base/HeavyText';
 import Colors from '../../constants/Colors';
 
 
-class Subject extends React.Component {
+class Requirement extends React.Component {
     render() {
       return (
-        <TouchableWithoutFeedback
-          onPress={() => this.props.navigation.navigate('StudentRequirementsDetail', { subject: this.props.name })}
+        <View
+          style={{
+            backgroundColor: Colors.white,
+            padding: 15,
+            borderRadius: 50,
+            alignItems: 'center',
+            marginBottom: 20,
+          }}
         >
-          <View
+          <HeavyText
             style={{
-              backgroundColor: Colors.white,
-              padding: 15,
-              borderRadius: 50,
-              alignItems: 'center',
-              marginBottom: 20,
+              fontSize: 25,
+              color: Colors.base,
             }}
-            >
-            <HeavyText
-              style={{
-                fontSize: 25,
-                color: Colors.base,
-              }}
-              >
-              {this.props.name}
-            </HeavyText>
-          </View>
-        </TouchableWithoutFeedback>
+          >
+            {this.props.name}
+          </HeavyText>
+        </View>
       );
     }
 }
 
 
 export default class StudentHomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.subjects = [
-      'MATH',
-      'FILIPINO',
-      'ENGLISH',
-      'SCIENCE',
-      'AP',
-      'TLE',
-      'CE',
-      'COMPUTER',
-      'MAPEH',
-    ];
-  }
-
   render() {
     return (
       <ImageBackground
@@ -89,7 +69,7 @@ export default class StudentHomeScreen extends React.Component {
             <Left>
               <Button
                 transparent
-                onPress={() => this.props.navigation.navigate('StudentHome')}
+                onPress={() => this.props.navigation.navigate('StudentRequirements')}
               >
                 <Icon
                   style={{ color: Colors.tint }}
@@ -103,7 +83,7 @@ export default class StudentHomeScreen extends React.Component {
                   color: Colors.base,
                 }}
               >
-                REQUIREMENTS
+                {this.props.navigation.state.params.subject}
               </Title>
             </Body>
             <Right>
@@ -119,17 +99,9 @@ export default class StudentHomeScreen extends React.Component {
                 paddingHorizontal: 20,
               }}
             >
-              {
-                this.subjects.map((subject) => {
-                  return(
-                    <Subject
-                      key={subject}
-                      name={subject}
-                      navigation={this.props.navigation}
-                    />
-                  );
-                })
-              }
+              <Requirement
+                name='Final Project'
+              />
             </View>
           </Content>
         </Container>

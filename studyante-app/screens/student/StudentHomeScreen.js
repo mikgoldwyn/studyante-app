@@ -32,7 +32,7 @@ class NavigationItem extends React.Component {
             borderBottomColor: Colors.base,
             borderTopWidth: 0,
           }}
-          >
+        >
           <Icon style={{ paddingHorizontal: 20, color: Colors.black }} name='arrow-dropright' />
           <LightText style={{ color: Colors.black }}>{this.props.text}</LightText>
         </View>

@@ -5,6 +5,7 @@ import InitialLoadingScreen from '../screens/InitialLoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import StudentHomeScreen from '../screens/student/StudentHomeScreen';
 import StudentRequirementsScreen from '../screens/student/StudentRequirementsScreen';
+import StudentRequirementsDetailScreen from '../screens/student/StudentRequirementsDetailScreen';
 
 
 const AuthStack = createStackNavigator(
@@ -26,6 +27,9 @@ const StudentStack = createStackNavigator(
     StudentRequirements: {
       screen: StudentRequirementsScreen,
     },
+    StudentRequirementsDetail: {
+      screen: StudentRequirementsDetailScreen,
+    }
   },
   {
     headerMode: 'none',
