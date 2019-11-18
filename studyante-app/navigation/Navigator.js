@@ -29,7 +29,7 @@ const StudentStack = createStackNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'StudentRequirements'
+    initialRouteName: 'StudentHome'
   },
 );
 

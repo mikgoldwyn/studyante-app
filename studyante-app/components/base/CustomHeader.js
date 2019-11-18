@@ -18,10 +18,13 @@ export default class StudentHomeScreen extends React.Component {
     return (
       <Header
         transparent
-        noShadow
         span
         noLeft
-        style={{ paddingTop: Constants.statusBarHeight }}
+        style={{
+          backgroundColor: Colors.transparent,
+          paddingTop: Constants.statusBarHeight,
+        }}
+        androidStatusBarColor={Colors.transparent}
       >
         <Body>
           <View
