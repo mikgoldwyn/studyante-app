@@ -82,7 +82,7 @@ export default class StudentHomeScreen extends React.Component {
             iosBarStyle='dark-content'
             androidStatusBarColor={Colors.transparent}
             style={{
-              paddingTop: Constants.statusBarHeight,
+              height: 100,
               backgroundColor: Colors.white
             }}
           >

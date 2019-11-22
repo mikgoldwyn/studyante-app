@@ -1,5 +1,6 @@
 import React from 'react';
 import Constants from 'expo-constants';
+import { Alert } from 'react-native';
 import {
   Text,
   View,
@@ -10,10 +11,34 @@ import {
   Icon,
 } from 'native-base';
 
+import Storage from '../../Storage';
 import Colors from '../../constants/Colors';
 
 
 export default class StudentHomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  _handleLogoutButton = async () => {
+    Alert.alert(
+      null,
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Logout',
+          onPress: async () => {
+            await Storage.removeItem('USER_DATA');
+            this.props.navigation.navigate('Auth');
+          }
+        },
+        { text: 'Cancel', onPress: () => null },
+      ]
+    );
+  }
+
+  _
+
   render() {
     return (
       <Header
@@ -38,13 +63,17 @@ export default class StudentHomeScreen extends React.Component {
             />
             <View style={{ padding: 10, flexDirection: 'column' }}>
               <Text style={{ textAlign: 'center', letterSpacing: 5, color: Colors.white, backgroundColor: Colors.tint, padding: .5 }}>
-                Lalisa Manoban
+                {this.props.firstName} {this.props.lastName}
               </Text>
               <Text style={{ letterSpacing: 5, color: Colors.white, padding: .5 }}>
                 Grade 10 Student
               </Text>
             </View>
-            <Button iconLeft transparent>
+            <Button
+              onPress={this._handleLogoutButton}
+              iconLeft
+              transparent
+            >
               <Icon
                 style={{ color: Colors.white }}
                 android='ios-arrow-down'

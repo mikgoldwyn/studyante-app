@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ImageBackground,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import {
   Container,
@@ -44,12 +45,13 @@ class NavigationItem extends React.Component {
 
 export default class StudentHomeScreen extends React.Component {
   render() {
+    console.log(this.props.navigation.state);
     return (
       <ImageBackground
         source={require('../../assets/main-bg.jpg')}
         style={{
-        width: '100%',
-        height: '100%'
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
         }}
       >
         <Container
@@ -57,7 +59,11 @@ export default class StudentHomeScreen extends React.Component {
             backgroundColor: 'transparent'
           }}
         >
-          <CustomHeader />
+          <CustomHeader
+            navigation={this.props.navigation}
+            firstName={this.props.navigation.state.params.first_name}
+            lastName={this.props.navigation.state.params.last_name}
+          />
           <Content
             contentContainerStyle={{ flex: 1  }}
           >
@@ -77,14 +83,14 @@ export default class StudentHomeScreen extends React.Component {
               }}
             >
               <NavigationItem
-                text="REQUIREMENTS"
+                text='REQUIREMENTS'
                 onPress={() => this.props.navigation.navigate('StudentRequirements')}
               />
               <NavigationItem
-                text="PLANNER / CALENDAR"
+                text='PLANNER / CALENDAR'
               />
               <NavigationItem
-                text="CLASS FUND"
+                text='CLASS FUND'
                 last
               />
             </View>

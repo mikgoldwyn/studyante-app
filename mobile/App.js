@@ -3,6 +3,7 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
+import { Root } from 'native-base';
 
 import AppContainer from './navigation/Navigator';
 
@@ -40,7 +41,9 @@ export default class App extends React.Component {
     }
 
     return (
-      <AppContainer />
+      <Root>
+        <AppContainer />
+      </Root>
     );
   }
 }

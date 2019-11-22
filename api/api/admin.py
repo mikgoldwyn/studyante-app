@@ -13,6 +13,8 @@ class UserAdmin(BaseUserAdmin):
             None,
             {'fields': (
                 'username',
+                'first_name',
+                'last_name',
                 'password',
                 'type',
             )}
@@ -25,6 +27,8 @@ class UserAdmin(BaseUserAdmin):
             None,
             {'fields': (
                 'username',
+                'first_name',
+                'last_name',
                 'password1',
                 'password2',
                 'type',

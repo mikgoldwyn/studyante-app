@@ -42,10 +42,10 @@ export default createAppContainer(
     {
       InitialLoading: InitialLoadingScreen,
       Auth: AuthStack,
-      Student: StudentStack,
+      StudentApp: StudentStack,
     },
     {
-      initialRouteName: 'Student',
+      initialRouteName: 'InitialLoading',
     }
   )
 );

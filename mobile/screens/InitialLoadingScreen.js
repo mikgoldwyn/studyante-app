@@ -1,9 +1,10 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  AsyncStorage,
 } from 'react-native';
-import { Container } from 'native-base';
+import { Container, Content } from 'native-base';
+
+import Storage from '../Storage';
 
 
 export default class InitialLoadingScreen extends React.Component {
@@ -13,14 +14,20 @@ export default class InitialLoadingScreen extends React.Component {
 
   _bootstrapAsync = async () => {
     // await AsyncStorage.setItem('userToken', '123');
-    const userToken = await AsyncStorage.getItem('userToken');
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    const userData = await Storage.getItem('USER_DATA');
+    if (userData) {
+      this.props.navigation.navigate('StudentHome', userData);
+    } else {
+      this.props.navigation.navigate('Auth');
+    }
   }
 
   render() {
     return (
       <Container>
-        <ActivityIndicator />
+        <Content contentContainerStyle={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+          <ActivityIndicator />
+        </Content>
       </Container>
     );
   }
