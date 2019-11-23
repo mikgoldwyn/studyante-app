@@ -45,7 +45,6 @@ class NavigationItem extends React.Component {
 
 export default class StudentHomeScreen extends React.Component {
   render() {
-    console.log(this.props.navigation.state);
     return (
       <ImageBackground
         source={require('../../assets/main-bg.jpg')}

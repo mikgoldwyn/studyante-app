@@ -17,25 +17,16 @@ class User(AbstractUser):
 
 
 class Requirement(models.Model):
-    MATH = 'math'
-    FILIPINO = 'filipino'
-    ENGLISH = 'english'
-    SCIENCE = 'science'
-    AP = 'ap'
-    TLE = 'tle'
-    CE = 'ce'
-    COMPUTER = 'computer'
-    MAPEH = 'mapeh'
     SUBJECTS = (
-        (MATH, 'Math'),
-        (FILIPINO, 'Filipino'),
-        (ENGLISH, 'English'),
-        (SCIENCE, 'Science'),
-        (AP, 'AP'),
-        (TLE, 'TLE'),
-        (CE, 'CE'),
-        (COMPUTER, 'Computer'),
-        (MAPEH, 'MAPEH'),
+        ('MATH', 'MATH'),
+        ('FILIPINO', 'FILIPINO'),
+        ('ENGLISH', 'ENGLISH'),
+        ('SCIENCE', 'SCIENCE'),
+        ('AP', 'AP'),
+        ('TLE', 'TLE'),
+        ('CE', 'CE'),
+        ('COMPUTER', 'COMPUTER'),
+        ('MAPEH', 'MAPEH'),
     )
     PENDING = 'pending'
     COMPLETED = 'completed'
@@ -59,3 +50,14 @@ class Requirement(models.Model):
         related_name='requirements',
         on_delete=models.CASCADE,
     )
+
+    def __str__(self):
+        return (
+            f'{self.name}'
+            ' | '
+            f'{self.get_subject_display()}'
+            ' | '
+            f'{self.student}'
+            ' | '
+            f'{self.get_status_display()}'
+        )

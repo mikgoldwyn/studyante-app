@@ -4,5 +4,5 @@ from . import viewsets
 
 router = routers.DefaultRouter()
 router.register(r'users', viewsets.UserViewSet)
-router.register(r'accounts', viewsets.RequirementViewSet)
+router.register(r'requirements', viewsets.RequirementViewSet)
 urlpatterns = router.urls

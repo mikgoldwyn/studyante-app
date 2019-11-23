@@ -4,7 +4,6 @@ import {
   View,
   TouchableWithoutFeedback,
 } from 'react-native';
-import Constants from 'expo-constants';
 import {
   Container,
   Content,
@@ -18,37 +17,50 @@ import {
   Title,
 } from 'native-base';
 
+import { RequirementAPI } from '../../api';
+import Storage from '../../Storage';
 import HeavyText from '../../components/base/HeavyText';
 import Colors from '../../constants/Colors';
 
 
 class Subject extends React.Component {
-    render() {
-      return (
-        <TouchableWithoutFeedback
-          onPress={() => this.props.navigation.navigate('StudentRequirementsDetail', { subject: this.props.name })}
-        >
-          <View
+  _handleSubjectPress = async (subject) => {
+    const userData = await Storage.getItem('USER_DATA');
+    const response = await RequirementAPI
+      .list({ subject, student: userData.id });
+    this.props.navigation
+      .navigate(
+        'StudentRequirementsDetail',
+        { requirements: response.data }
+      );
+  }
+
+  render() {
+    return (
+      <TouchableWithoutFeedback
+        onPress={this._handleSubjectPress.bind(this, this.props.name)}
+      >
+        <View
+          style={{
+            backgroundColor: Colors.white,
+            padding: 15,
+            borderRadius: 50,
+            alignItems: 'center',
+            marginBottom: 20,
+          }}
+          >
+          <HeavyText
             style={{
-              backgroundColor: Colors.white,
-              padding: 15,
-              borderRadius: 50,
-              alignItems: 'center',
-              marginBottom: 20,
+              fontSize: 25,
+              color: Colors.base,
             }}
             >
-            <HeavyText
-              style={{
-                fontSize: 25,
-                color: Colors.base,
-              }}
-              >
-              {this.props.name}
-            </HeavyText>
-          </View>
-        </TouchableWithoutFeedback>
-      );
-    }
+            {this.props.name}
+          </HeavyText>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
 }
 
 

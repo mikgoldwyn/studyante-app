@@ -27,5 +27,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class RequirementViewSet(viewsets.ModelViewSet):
-    queryset = models.Requirement.objects.all()
+    queryset = models.Requirement.objects.all().order_by('-status')
     serializer_class = serializers.RequirementSerializer
+    filterset_fields = ['student', 'subject']

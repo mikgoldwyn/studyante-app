@@ -26,7 +26,9 @@ class Requirement extends React.Component {
       return (
         <View
           style={{
-            backgroundColor: Colors.white,
+            backgroundColor: this.props.status == 'completed' ?
+              Colors.tint :
+              Colors.white,
             padding: 15,
             borderRadius: 50,
             alignItems: 'center',
@@ -40,6 +42,11 @@ class Requirement extends React.Component {
             }}
           >
             {this.props.name}
+            {
+              this.props.status == 'completed' ?
+              ' (COMPLETED)':
+              null
+            }
           </HeavyText>
         </View>
       );
@@ -99,9 +106,16 @@ export default class StudentHomeScreen extends React.Component {
                 paddingHorizontal: 20,
               }}
             >
-              <Requirement
-                name='Final Project'
-              />
+              {
+                this.props.navigation.state.params.requirements
+                  .map((requirement) => (
+                    <Requirement
+                      key={requirement.id}
+                      name={requirement.name}
+                      status={requirement.status}
+                    />
+                  ))
+              }
             </View>
           </Content>
         </Container>
