@@ -9,6 +9,16 @@ class User(AbstractUser):
         (TEACHER, 'Teacher'),
         (STUDENT, 'Student'),
     )
+    MALE = 'male'
+    FEMALE = 'female'
+    GENDERS = (
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+    )
+    gender = models.CharField(
+        max_length=6,
+        choices=GENDERS,
+    )
     type = models.CharField(
         max_length=7,
         choices=USER_TYPES,

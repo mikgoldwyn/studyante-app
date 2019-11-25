@@ -15,8 +15,13 @@ export default class InitialLoadingScreen extends React.Component {
   _bootstrapAsync = async () => {
     // await AsyncStorage.setItem('userToken', '123');
     const userData = await Storage.getItem('USER_DATA');
+    this.props.navigation.navigate('Auth');
     if (userData) {
-      this.props.navigation.navigate('StudentHome', userData);
+      if (userData.type == 'student') {
+        this.props.navigation.navigate('StudentHome', userData);
+      } else {
+        this.props.navigation.navigate('TeacherHome', userData);
+      }
     } else {
       this.props.navigation.navigate('Auth');
     }

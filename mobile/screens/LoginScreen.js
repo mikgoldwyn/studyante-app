@@ -12,7 +12,7 @@ import {
   View
 } from 'native-base';
 
-import { AuthAPI } from '../api';
+import { UserAPI } from '../api';
 import Storage from '../Storage';
 import Colors from '../constants/Colors';
 
@@ -21,11 +21,15 @@ export default class LoginScreen extends React.Component {
   _handleLogin = async () => {
     this.setState({ loading: true });
     try {
-      const response = await AuthAPI.login({ username: this.state.username, password: this.state.password });
+      const response = await UserAPI.login({ username: this.state.username, password: this.state.password });
       const data = response.data;
       await Storage.setItem('USER_DATA', data);
       this.setState({ loading: false });
-      this.props.navigation.navigate('StudentHome', data);
+      if (data.type == 'student') {
+        this.props.navigation.navigate('StudentHome', data);
+      } else {
+        this.props.navigation.navigate('TeacherHome', data);
+      }
     } catch (error) {
       Toast.show({
         text: 'Invalid username or password',
@@ -82,7 +86,7 @@ export default class LoginScreen extends React.Component {
                 <Text style={{ fontFamily: 'Sacramento', textAlign: 'center', fontSize: 50 }}>Studyante</Text>
               </View>
               <Item regular style={{ paddingHorizontal: 15, marginBottom: 20, borderRadius: 5, borderWidth: 1, backgroundColor: '#f5f5f5' }}>
-                <Input onChangeText={(text) => this.setState({ username: text })} placeholder='Username' />
+                <Input autoCapitalize='none' onChangeText={(text) => this.setState({ username: text })} placeholder='Username' />
               </Item>
               <Item regular style={{ paddingHorizontal: 15, marginBottom: 20, borderRadius: 5, borderWidth: 1, backgroundColor: '#f5f5f5' }}>
                 <Input onChangeText={(text) => this.setState({ password: text })} secureTextEntry placeholder='Password' />

@@ -6,8 +6,8 @@ from . import models
 
 
 class UserAdmin(BaseUserAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'type')
-    list_filter = ('username',)
+    list_display = ('username', 'first_name', 'last_name', 'type', 'gender')
+    list_filter = ['type', 'gender']
     fieldsets = (
         (
             None,
@@ -17,6 +17,7 @@ class UserAdmin(BaseUserAdmin):
                 'last_name',
                 'password',
                 'type',
+                'gender',
             )}
         ),
     )
@@ -32,6 +33,7 @@ class UserAdmin(BaseUserAdmin):
                 'password1',
                 'password2',
                 'type',
+                'gender',
             )}
         ),
     )

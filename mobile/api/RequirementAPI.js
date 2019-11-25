@@ -18,4 +18,9 @@ export default class RequirementAPI {
     const response = await axios.get('requirements/', { params });
     return response;
   }
+
+  static update = async (data) => {
+    const response = await axios.patch(`requirements/${data.id}/`, data);
+    return response;
+  }
 }

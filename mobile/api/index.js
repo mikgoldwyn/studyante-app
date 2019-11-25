@@ -2,11 +2,14 @@ import axios from 'axios';
 
 import Storage from '../Storage';
 
-export AuthAPI from './AuthAPI';
+export UserAPI from './UserAPI';
 export RequirementAPI from './RequirementAPI';
+import Constants from 'expo-constants';
 
 
-axios.defaults.baseURL = 'http://192.168.1.8:8000/api/';
+axios.defaults.baseURL = (__DEV__) ?
+  `http://${Constants.manifest.debuggerHost.split(':').shift()}:8000/api/` :
+  'api.mikgoldwyn.com/api/';
 
 axios.interceptors.request.use(
   async (config) => {

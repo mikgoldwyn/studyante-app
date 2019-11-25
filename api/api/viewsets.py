@@ -13,6 +13,7 @@ from . import serializers
 class UserViewSet(viewsets.ModelViewSet):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
+    filterset_fields = ['gender', 'type']
 
     @action(detail=False, methods=['post'], permission_classes=(permissions.AllowAny,))
     def login(self, request):

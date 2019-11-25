@@ -66,7 +66,7 @@ export default class StudentHomeScreen extends React.Component {
                 {this.props.firstName} {this.props.lastName}
               </Text>
               <Text style={{ letterSpacing: 5, color: Colors.white, padding: .5 }}>
-                Grade 10 Student
+                Grade 10 {this.props.type}
               </Text>
             </View>
             <Button

@@ -8,9 +8,10 @@ import {
   Container,
   Content,
   View,
-  Icon,
+  CardItem,
 } from 'native-base';
 
+import { UserAPI } from '../../api';
 import CustomHeader from '../../components/base/CustomHeader';
 import LightText from '../../components/base/LightText';
 import Colors from '../../constants/Colors';
@@ -24,18 +25,18 @@ class NavigationItem extends React.Component {
       >
         <View
           style={{
-            flex: 1,
-            flexDirection: 'row',
-            paddingHorizontal: 50,
-            backgroundColor: Colors.opaqueTint,
+            height: 75,
+            backgroundColor: 'white',
+            width: Dimensions.get('window').width - 50,
+            alignSelf: 'center',
+            justifyContent: 'center',
             alignItems: 'center',
-            borderBottomWidth: (this.props.last)? 0 : 2,
-            borderBottomColor: Colors.base,
-            borderTopWidth: 0,
+            borderRadius: 25,
           }}
         >
-          <Icon style={{ paddingHorizontal: 20, color: Colors.black }} name='arrow-dropright' />
-          <LightText style={{ color: Colors.black }}>{this.props.text}</LightText>
+          <CardItem>
+            <LightText>{this.props.text}</LightText>
+          </CardItem>
         </View>
       </TouchableWithoutFeedback>
     );
@@ -44,6 +45,13 @@ class NavigationItem extends React.Component {
 
 
 export default class StudentHomeScreen extends React.Component {
+  _goToRequirements = async (gender) => {
+    const type = 'student';
+    const response = await UserAPI.list({ gender, type });
+    this.props.navigation
+      .navigate('TeacherStudentList', { gender, students: response.data });
+  }
+
   render() {
     return (
       <ImageBackground
@@ -62,10 +70,10 @@ export default class StudentHomeScreen extends React.Component {
             navigation={this.props.navigation}
             firstName={this.props.navigation.state.params.first_name}
             lastName={this.props.navigation.state.params.last_name}
-            type='Student'
+            type='Teacher'
           />
           <Content
-            contentContainerStyle={{ flex: 1  }}
+            contentContainerStyle={{ flex: 1 }}
           >
             <View
               style={{
@@ -74,26 +82,15 @@ export default class StudentHomeScreen extends React.Component {
               }}
             >
             </View>
-            <View
-              style={{
-                flex: 2,
-                borderTopWidth: 2,
-                borderBottomWidth: 2,
-                borderColor: Colors.base,
-              }}
-            >
               <NavigationItem
-                text='REQUIREMENTS'
-                onPress={() => this.props.navigation.navigate('StudentRequirements')}
+                text='REQUIREMENTS BOYS'
+                onPress={this._goToRequirements.bind(this, 'male')}
               />
+              <View style={{ paddingVertical: 25 }} />
               <NavigationItem
-                text='PLANNER / CALENDAR'
+                text='REQUIREMENTS GIRLS'
+                onPress={this._goToRequirements.bind(this, 'female')}
               />
-              <NavigationItem
-                text='CLASS FUND'
-                last
-              />
-            </View>
             <View
               style={{
                 flex: 2,
