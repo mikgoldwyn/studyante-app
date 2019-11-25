@@ -60,6 +60,10 @@ class Requirement(models.Model):
         related_name='requirements',
         on_delete=models.CASCADE,
     )
+    deadline = models.DateField(
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return (
