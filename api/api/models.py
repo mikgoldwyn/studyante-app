@@ -54,6 +54,7 @@ class Requirement(models.Model):
     status = models.CharField(
         max_length=32,
         choices=STATUSES,
+        default=PENDING,
     )
     student = models.ForeignKey(
         'api.User',

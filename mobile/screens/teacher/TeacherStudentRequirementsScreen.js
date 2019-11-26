@@ -3,7 +3,8 @@ import {
   ImageBackground,
   View,
   Alert,
-  TouchableOpacity,
+  Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {
   Container,
@@ -17,10 +18,16 @@ import {
   Text,
   CardItem,
   Card,
+  Label,
+  Form,
+  Item,
+  Input,
+  DatePicker,
+  Picker,
   Fab,
 } from 'native-base';
 
-import { RequirementAPI } from '../../api';
+import { RequirementAPI, UserAPI } from '../../api';
 import Colors from '../../constants/Colors';
 
 
@@ -30,8 +37,7 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
       null,
       (requirement.status == 'completed') ?
         'Change status to PENDING' :
-        'Change status to COMPLETED'
-      ,
+        'Change status to COMPLETED',
       [
         {
           text: 'Accept',
@@ -65,7 +71,6 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
               }
             });
             this.setState({ subjectsWithRequirements });
-            // end onPress
           }
         },
         { text: 'Cancel', onPress: () => null },
@@ -74,11 +79,70 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
 
   }
 
+  _showModal = () => {
+    this.setState({
+      modal: {
+        visible: true,
+        subject: null,
+        student: null,
+        deadline: null,
+        name: null,
+      },
+    });
+  }
+
+  _hideModal = () => {
+    this.setState({
+      modal: {
+        visible: false,
+        subject: null,
+        student: null,
+        deadline: null,
+        name: null,
+      },
+    });
+  }
+
+  _handleAddRequirement = async () => {
+    const data = {
+      student: this.state.modal.student.id,
+      deadline: this.state.modal.deadline,
+      subject: this.state.modal.subject,
+      name: this.state.modal.name,
+    };
+    try {
+      await RequirementAPI.create(data);
+      const response = await RequirementAPI.list({ student: data.student.id });
+      this.setState({ students: response.data });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       subjectsWithRequirements: this.props.navigation.state.params.subjectsWithRequirements,
+      modal: {
+        visible: false,
+        subject: null,
+        student: null,
+        deadline: null,
+        name: null,
+      },
+      students: this.props.navigation.state.params.students,
     };
+    this.subjects = [
+      'MATH',
+      'FILIPINO',
+      'ENGLISH',
+      'SCIENCE',
+      'AP',
+      'TLE',
+      'CE',
+      'COMPUTER',
+      'MAPEH',
+    ];
   }
 
   render() {
@@ -200,11 +264,106 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
                   ))
               }
             </View>
+            <Modal
+              animationType='fade'
+              transparent={true}
+              visible={this.state.modal.visible}
+            >
+              <TouchableWithoutFeedback onPress={this._hideModal}>
+                <View style={{ height: '50%', backgroundColor: 'rgba(0, 0, 0, .5)' }}>
+                </View>
+              </TouchableWithoutFeedback>
+              <View style={{ flex: 1, justifyContent: 'space-around', padding: 25, height: '50%', backgroundColor: 'white' }}>
+                <View>
+                  <Form>
+                    <Item picker>
+                      <Label>Subject</Label>
+                      <Picker
+                        mode='dropdown'
+                        iosIcon={<Icon name='arrow-down' />}
+                        placeholder='Select a Subject'
+                        selectedValue={this.state.modal.subject}
+                        onValueChange={
+                          (subject) => this.setState((state, props) => {
+                            const modal = JSON.parse(JSON.stringify(state.modal));
+                            modal.subject = subject;
+                            return { modal };
+                          })
+                        }
+                      >
+                        <Picker.Item label='' value={null}/>
+                        {
+                          this.subjects.map((subject) => <Picker.Item label={subject} value={subject} key={subject} />)
+                        }
+                      </Picker>
+                    </Item>
+                    <Item picker>
+                      <Label>Student</Label>
+                      <Picker
+                        mode='dropdown'
+                        iosIcon={<Icon name='arrow-down' />}
+                        placeholder='Select a Student'
+                        selectedValue={this.state.modal.student}
+                        onValueChange={
+                          (student) => this.setState((state, props) => {
+                            const modal = JSON.parse(JSON.stringify(state.modal));
+                            modal.student = student;
+                            return { modal };
+                          })
+                        }
+                      >
+                        <Picker.Item label='' value={null}/>
+                        {
+                          this.state.students
+                            .map((student) => (
+                              <Picker.Item label={`${student.first_name} ${student.last_name}`} value={student.id} key={student.id} />
+                            ))
+                        }
+                      </Picker>
+                    </Item>
+                    <Item picker>
+                      <Label>Deadline</Label>
+                      <DatePicker
+                        onDateChange={(date) => {
+                          this.setState((state, props) => {
+                            const modal = JSON.parse(JSON.stringify(state.modal));
+                            modal.deadline = date.toISOString().split('T')[0];
+                            return { modal };
+                          });
+                        }}
+                      />
+                    </Item>
+                    <Item picker>
+                      <Label>Name</Label>
+                      <Input
+                        onChangeText={(text) => {
+                          this.setState((state, props) => {
+                            const modal = JSON.parse(JSON.stringify(state.modal));
+                            modal.name = text;
+                            return { modal };
+                          });
+                        }}
+                      />
+                    </Item>
+                    <Button
+                      block
+                      style={{
+                        backgroundColor: Colors.tint
+                      }}
+                      onPress={this._handleAddRequirement}
+                      >
+                      <Text>Add Requirement</Text>
+                    </Button>
+                  </Form>
+                </View>
+              </View>
+            </Modal>
+
           </Content>
           <Fab
             style={{ backgroundColor: '#34A34F' }}
             position='bottomRight'
-            onPress={() => {}}
+            onPress={this._showModal}
           >
             <Icon name='add' />
           </Fab>

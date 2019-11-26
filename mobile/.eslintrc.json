@@ -12,7 +12,9 @@
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly",
-        "__DEV__": "readonly"
+        "__DEV__": "readonly",
+        "GLOBAL": "readonly",
+        "XMLHttpRequest": "writable"
     },
     "parser": "babel-eslint",
     "parserOptions": {

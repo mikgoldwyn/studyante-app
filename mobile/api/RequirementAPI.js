@@ -23,4 +23,10 @@ export default class RequirementAPI {
     const response = await axios.patch(`requirements/${data.id}/`, data);
     return response;
   }
+
+  static create = async (data) => {
+    const response = await axios.post(`requirements/`, data);
+    return response;
+  }
+
 }

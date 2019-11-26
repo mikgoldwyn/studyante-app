@@ -51,6 +51,7 @@ class Student extends React.Component {
         {
           subjectsWithRequirements,
           student: this.props.data,
+          students: this.props.students,
         }
       );
   }
@@ -82,7 +83,7 @@ class Student extends React.Component {
 }
 
 
-export default class StudentHomeScreen extends React.Component {
+export default class TeacherStudentList extends React.Component {
   render() {
     return (
       <ImageBackground
@@ -147,6 +148,7 @@ export default class StudentHomeScreen extends React.Component {
                         key={student.id}
                         data={student}
                         navigation={this.props.navigation}
+                        students={this.props.navigation.state.params.students}
                       />
                     );
                   })

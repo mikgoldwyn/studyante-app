@@ -85,8 +85,8 @@ export default class StudentHomeScreen extends React.Component {
       <ImageBackground
         source={require('../../assets/sub-bg.jpg')}
         style={{
-        width: '100%',
-        height: '100%'
+          width: '100%',
+          height: '100%'
         }}
       >
         <Container style={{ backgroundColor: Colors.transparent }} >
