@@ -24,6 +24,10 @@ class User(AbstractUser):
         choices=USER_TYPES,
         default=STUDENT,
     )
+    push_notification_token = models.CharField(
+        blank=True,
+        max_length=100,
+    )
 
 
 class Requirement(models.Model):

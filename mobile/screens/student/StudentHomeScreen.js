@@ -11,6 +11,7 @@ import {
   Icon,
 } from 'native-base';
 
+import { UserAPI } from '../../api/';
 import CustomHeader from '../../components/base/CustomHeader';
 import LightText from '../../components/base/LightText';
 import Colors from '../../constants/Colors';
@@ -44,6 +45,10 @@ class NavigationItem extends React.Component {
 
 
 export default class StudentHomeScreen extends React.Component {
+  componentDidMount() {
+    UserAPI.registerPushNotifications();
+  }
+
   render() {
     return (
       <ImageBackground

@@ -15,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             'type',
             'auth_token',
             'gender',
+            'push_notification_token',
         ]
 
 

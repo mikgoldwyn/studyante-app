@@ -113,6 +113,7 @@ export default class StudentHomeScreen extends React.Component {
                       key={requirement.id}
                       name={requirement.name}
                       status={requirement.status}
+                      deadline={requirement.deadline}
                     />
                   ))
               }
