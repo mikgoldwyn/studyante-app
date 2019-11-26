@@ -291,7 +291,7 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
                               {
                                 requirement.status == 'completed' ?
                                 ' (COMPLETED)' :
-                                null
+                                ` (${requirement.deadline})`
                               }
                             </Text>
                             <Right>

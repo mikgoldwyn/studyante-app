@@ -45,7 +45,7 @@ class Requirement extends React.Component {
             {
               this.props.status == 'completed' ?
               ' (COMPLETED)':
-              null
+              ` (${this.props.deadline})`
             }
           </HeavyText>
         </View>
