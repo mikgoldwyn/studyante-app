@@ -24,10 +24,11 @@ import {
   Input,
   DatePicker,
   Picker,
+  Toast,
   Fab,
 } from 'native-base';
 
-import { RequirementAPI, UserAPI } from '../../api';
+import { RequirementAPI } from '../../api';
 import Colors from '../../constants/Colors';
 
 
@@ -62,6 +63,7 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
                 COMPUTER: [],
                 MAPEH: [],
             };
+
             response.data.map((requirement) => {
               subjectsWithRequirements[requirement.subject].push(requirement);
             });
@@ -104,18 +106,64 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
   }
 
   _handleAddRequirement = async () => {
+    if (
+      ! this.state.modal.subject ||
+      ! this.state.modal.name
+    ) {
+      Toast.show({
+        text: 'Missing required fields',
+        buttonText: 'Try again',
+        position: 'top',
+        type: 'danger',
+      });
+      return;
+    }
+
     const data = {
-      student: this.state.modal.student.id,
+      student: this.props.navigation.state.params.student.id,
       deadline: this.state.modal.deadline,
       subject: this.state.modal.subject,
       name: this.state.modal.name,
     };
     try {
       await RequirementAPI.create(data);
-      const response = await RequirementAPI.list({ student: data.student.id });
-      this.setState({ students: response.data });
+      Toast.show({
+        text: 'Requirement added!',
+        position: 'top',
+        type: 'success',
+      });
+      const response = await RequirementAPI
+        .list({ student: data.student });
+
+      const subjectsWithRequirements = {
+          MATH: [],
+          FILIPINO: [],
+          ENGLISH: [],
+          SCIENCE: [],
+          AP: [],
+          TLE: [],
+          CE: [],
+          COMPUTER: [],
+          MAPEH: [],
+      };
+
+      response.data.map((requirement) => {
+        subjectsWithRequirements[requirement.subject].push(requirement);
+      });
+      Object.entries(subjectsWithRequirements).map(([subject, data]) => {
+        if (! data.length) {
+          delete subjectsWithRequirements[subject];
+        }
+      });
+      this.setState({ subjectsWithRequirements });
+      this._hideModal();
     } catch (error) {
-      console.log(error.response.data);
+      Toast.show({
+        text: JSON.stringify(error.response.data),
+        buttonText: 'Try again',
+        position: 'top',
+        type: 'danger',
+      });
     }
   }
 
@@ -126,7 +174,6 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
       modal: {
         visible: false,
         subject: null,
-        student: null,
         deadline: null,
         name: null,
       },
@@ -243,7 +290,7 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
                               {requirement.name}
                               {
                                 requirement.status == 'completed' ?
-                                '(COMPLETED)' :
+                                ' (COMPLETED)' :
                                 null
                               }
                             </Text>
@@ -298,30 +345,6 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
                       </Picker>
                     </Item>
                     <Item picker>
-                      <Label>Student</Label>
-                      <Picker
-                        mode='dropdown'
-                        iosIcon={<Icon name='arrow-down' />}
-                        placeholder='Select a Student'
-                        selectedValue={this.state.modal.student}
-                        onValueChange={
-                          (student) => this.setState((state, props) => {
-                            const modal = JSON.parse(JSON.stringify(state.modal));
-                            modal.student = student;
-                            return { modal };
-                          })
-                        }
-                      >
-                        <Picker.Item label='' value={null}/>
-                        {
-                          this.state.students
-                            .map((student) => (
-                              <Picker.Item label={`${student.first_name} ${student.last_name}`} value={student.id} key={student.id} />
-                            ))
-                        }
-                      </Picker>
-                    </Item>
-                    <Item picker>
                       <Label>Deadline</Label>
                       <DatePicker
                         onDateChange={(date) => {
@@ -351,7 +374,7 @@ export default class TeacherStudentsRequirementsScreen extends React.Component {
                         backgroundColor: Colors.tint
                       }}
                       onPress={this._handleAddRequirement}
-                      >
+                    >
                       <Text>Add Requirement</Text>
                     </Button>
                   </Form>
