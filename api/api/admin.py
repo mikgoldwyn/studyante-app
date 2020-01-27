@@ -18,6 +18,7 @@ class UserAdmin(BaseUserAdmin):
                 'password',
                 'type',
                 'gender',
+                'profile_picture',
             )}
         ),
     )
@@ -34,6 +35,7 @@ class UserAdmin(BaseUserAdmin):
                 'password2',
                 'type',
                 'gender',
+                'profile_picture',
             )}
         ),
     )

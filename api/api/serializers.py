@@ -16,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
             'auth_token',
             'gender',
             'push_notification_token',
+            'profile_picture',
         ]
 
 

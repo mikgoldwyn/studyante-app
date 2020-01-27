@@ -28,6 +28,10 @@ class User(AbstractUser):
         blank=True,
         max_length=100,
     )
+    profile_picture = models.ImageField(
+        blank=True,
+        null=True,
+    )
 
 
 class Requirement(models.Model):

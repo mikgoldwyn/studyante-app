@@ -71,6 +71,7 @@ export default class StudentHomeScreen extends React.Component {
             navigation={this.props.navigation}
             firstName={this.props.navigation.state.params.first_name}
             lastName={this.props.navigation.state.params.last_name}
+            profilePicture={this.props.navigation.state.params.profile_picture}
             type='Teacher'
           />
           <Content

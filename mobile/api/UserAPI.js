@@ -11,7 +11,7 @@ export default class UserAPI {
     if (__DEV__) {
       return `http://${Constants.manifest.debuggerHost.split(':').shift()}:8000/api/`;
     } else {
-      return `api.mikgoldwyn.com/api/`;
+      return `https://mikgoldwyn.com/api/`;
     }
   }
 

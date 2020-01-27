@@ -9,7 +9,7 @@ import Constants from 'expo-constants';
 
 axios.defaults.baseURL = (__DEV__) ?
   `http://${Constants.manifest.debuggerHost.split(':').shift()}:8000/api/` :
-  'api.mikgoldwyn.com/api/';
+  `https://mikgoldwyn.com/api/`;
 
 axios.interceptors.request.use(
   async (config) => {

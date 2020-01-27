@@ -55,6 +55,7 @@ class RequirementViewSet(viewsets.ModelViewSet):
             push_message = PushMessage(
                 to=student.push_notification_token,
                 body=body,
+                sound='default',
                 channel_id='push-notifications'
             )
             PushClient().publish(push_message)
