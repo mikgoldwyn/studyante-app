@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Dimensions, Keyboard } from 'react-native';
+import { Image, Dimensions, Keyboard, ImageBackground, StatusBar } from 'react-native';
 import {
   Toast,
   Container,
@@ -9,7 +9,7 @@ import {
   Input,
   Text,
   Button,
-  View
+  View,
 } from 'native-base';
 
 import { UserAPI } from '../api';
@@ -77,13 +77,19 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <Container>
+        <StatusBar
+          barStyle='light-content'
+          translucent = {true}
+          backgroundColor = 'rgba(0, 0, 0, .0)'
+        />
         <Content contentContainerStyle={{ flexGrow: 1, backgroundColor: Colors.white }}>
-          <View
+          <ImageBackground
             style={{ flex: 1 }}
+            source={require('../assets/sub-bg.jpg')}
           >
             <Form style={{ flex: 3, justifyContent: 'center', paddingHorizontal: 25 }}>
               <View style={{ marginBottom: 10 }}>
-                <Text style={{ fontFamily: 'Sacramento', textAlign: 'center', fontSize: 50 }}>Studyante</Text>
+                <Text style={{ color: 'white', fontFamily: 'KeepCalm', textAlign: 'center', fontSize: 50 }}>Faith</Text>
               </View>
               <Item regular style={{ paddingHorizontal: 15, marginBottom: 20, borderRadius: 5, borderWidth: 1, backgroundColor: '#f5f5f5' }}>
                 <Input autoCapitalize='none' onChangeText={(text) => this.setState({ username: text })} placeholder='Username' />
@@ -105,10 +111,10 @@ export default class LoginScreen extends React.Component {
                 transform={[{ scaleY: 1.02 }]}
                 resizeMode='contain'
                 style={{ width:  Dimensions.get('window').width, height: 150 }}
-                source={require('../assets/login-bg.png')}
+                source={require('../assets/icon-white.png')}
               />
             }
-          </View>
+          </ImageBackground>
         </Content>
       </Container>
     );
